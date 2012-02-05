@@ -19,7 +19,7 @@ def getCurrentDownloadSpeed( sabServer, sabAPIKey ):
 
 def setNewDownloadSpeed( sabServer, sabAPIKey, downloadSpeed ):
     urlString = sabServer + "/?mode=config&name=speedlimit&value=" + str(downloadSpeed) + "&apikey=" + sabAPIKey
-
-    urllib.request.urlopen(urlString)
-
+    page = urlopen(urlString)
+    readValue = page.read()
+    page.close()
     return True

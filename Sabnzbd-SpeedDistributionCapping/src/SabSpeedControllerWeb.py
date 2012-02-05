@@ -10,8 +10,11 @@ class SabSpeedWebController(object):
     index.exposed = True
     
     def setSabSpeed(self, newSpeed=None, minutesToHaveNewSpeed=None):
+        print('Speed override received from web UI:')
         print('newSpeed: ' + newSpeed)
         print('minutesToHaveNewSpeed: ' + minutesToHaveNewSpeed)
+        self.sabSpeedController.createSabSpeedOverride(newSpeed, minutesToHaveNewSpeed)
+        return 'Your speed override has been set (Player!)'
     setSabSpeed.exposed = True
     
     def getWebHtmlContent(self):

@@ -5,12 +5,13 @@ Created on Feb 5, 2012
 '''
 import cherrypy
 from Utility import log
-from properties import HIGH_SPEED_LIMIT, LOW_SPEED_LIMIT, RIC_SAB, JAS_SAB,\
+from properties import HIGH_SPEED_LIMIT, LOW_SPEED_LIMIT, RIC_SAB, JAS_SAB, \
     NIGHT_TIME_START, NIGHT_TIME_STOP, WORK_TIME_START, WORK_TIME_STOP
 from SabSpeedControllerWeb import SabSpeedWebController
 from SabSpeedController import SabSpeedController
 import threading
 from threading import Thread
+import properties
 
 
 
@@ -20,8 +21,11 @@ def main():
     printStartupConfiguration();
     
     sabSpeedController = SabSpeedController()
-    s= SabSpeedControllerThread(sabSpeedController)
-    s.start()
+    SabSpeedControllerThread(sabSpeedController).start()
+    cherrypy.config.update({
+                        'server.socket_host': '127.0.0.1',
+                        'server.socket_port': properties.WEB_PORT,
+                        }) 
     cherrypy.quickstart(SabSpeedWebController(sabSpeedController))
     
 class SabSpeedControllerThread(threading.Thread):
