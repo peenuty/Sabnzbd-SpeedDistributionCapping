@@ -23,7 +23,7 @@ def main():
     sabSpeedController = SabSpeedController()
     SabSpeedControllerThread(sabSpeedController).start()
     cherrypy.config.update({
-                        'server.socket_host': '127.0.0.1',
+                        'server.socket_host': properties.WEB_HOST,
                         'server.socket_port': properties.WEB_PORT,
                         }) 
     cherrypy.quickstart(SabSpeedWebController(sabSpeedController))
